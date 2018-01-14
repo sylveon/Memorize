@@ -100,7 +100,7 @@ namespace Sylveon.Memorize
     }
 
     /// <summary>
-    /// A wrapper for the main <seealso cref="Memorizer{T, TResult, TDictionary}" /> class taking a non-nullable value only.
+    /// A wrapper for the main <see cref="Memorizer{T, TResult, TDictionary}" /> class taking a non-nullable value only.
     /// If you need one handling nullable values, use <see cref="NullableMemorizer{T, TResult}"/>.
     /// </summary>
     /// <typeparam name="T">
@@ -123,7 +123,7 @@ namespace Sylveon.Memorize
     }
 
     /// <summary>
-    /// A wrapper for the main <seealso cref="Memorizer{T, TResult, TDictionary}" /> class taking a nullable value only.
+    /// A wrapper for the main <see cref="Memorizer{T, TResult, TDictionary}" /> class taking a nullable value only.
     /// If you need one handling non-nullable values, use <see cref="Memorizer{T, TResult}"/>.
     /// </summary>
     /// <typeparam name="T">

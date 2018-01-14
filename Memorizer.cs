@@ -4,7 +4,9 @@ using System.Collections.Generic;
 namespace Sylveon.Memorize
 {
     /// <summary>
-    /// A class used to memoize a single-parameter function.
+    /// A class used to memoize a single-parameter function. Unrecommended,
+    /// use the Memorizer<T, TResult> and NullableMemorizer<T, Result>
+    /// wrappers instead.
     /// </summary>
     /// <typeparam name="T">
     /// The type of the parameter of the function
@@ -13,9 +15,7 @@ namespace Sylveon.Memorize
     /// The type of the return value of the function
     /// </typeparam>
     /// <typeparam>
-    /// The type of the Dictionary to use. Unrecommended, use the
-    /// Memorizer<T, TResult> and NullableMemorizer<T, Result> wrappers
-    /// instead.
+    /// The type of the Dictionary to use.
     /// </typeparam>
     public class Memorizer<T, TResult, TDictionary> where TDictionary : IDictionary<T, TResult>, new()
     {
@@ -90,10 +90,36 @@ namespace Sylveon.Memorize
             return this._memorizedResults[param];
         }
     }
+
+    /// <summary>
+    /// A wrapper for the main Memorizer class taking a non-nullable value only.
+    /// If you need one handling nullable values, use NullableMemorizer<T, TResult>.
+    /// </summary>
+    /// <typeparam name="T">
+    /// The type of the parameter of the function
+    /// </typeparam>
+    /// <typeparam name="TResult">
+    /// The type of the return value of the function
+    /// </typeparam>
+    /// <seealso cref="Memorizer<T, TResult, TDictionary>" />
+    /// <seealso cref="NullableMemorizer<T, TResult>" />
     public class Memorizer<T, TResult> : Memorizer<T, TResult, Dictionary<T, TResult>> where T : struct
     {
         public Memorizer(Func<T, TResult> func) : base(func) { }
     }
+
+    /// <summary>
+    /// A wrapper for the main Memorizer class taking a nullable value only.
+    /// If you need one handling non-nullable values, use Memorizer<T, TResult>.
+    /// </summary>
+    /// <typeparam name="T">
+    /// The type of the parameter of the function
+    /// </typeparam>
+    /// <typeparam name="TResult">
+    /// The type of the return value of the function
+    /// </typeparam>
+    /// <seealso cref="Memorizer<T, TResult, TDictionary>" />
+    /// <seealso cref="Memorizer<T, TResult>" />
     public class NullableMemorizer<T, TResult> : Memorizer<T, TResult, NullableDictionary<T, TResult>> where T : class
     {
         public NullableMemorizer(Func<T, TResult> func) : base(func) { }

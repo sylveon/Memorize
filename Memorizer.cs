@@ -89,7 +89,7 @@ namespace Sylveon.Memorize
         /// </return>
         public TResult Invoke(T param)
         {
-            if(!IsResultMemorized(param))
+            if(!this.IsResultMemorized(param))
             {
                 this._memorizedResults[param] = _functionToMemorize(param);
             }

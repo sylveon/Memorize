@@ -11,7 +11,7 @@
     <PackageProjectUrl>https://github.com/sylveon/Memorize</PackageProjectUrl>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseUrl>https://github.com/sylveon/Memorize/blob/master/License.md</PackageLicenseUrl>
-    <PackageReleaseNotes>First release</PackageReleaseNotes>
+    <PackageReleaseNotes>Add XML documentation to NuGet package, some internal changes</PackageReleaseNotes>
     <Copyright>Copyright 2018 (c) Charles Milette.</Copyright>
     <PackageTags>memoize memoization memoise memoisation</PackageTags>
   </PropertyGroup>

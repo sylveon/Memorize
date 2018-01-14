@@ -56,7 +56,7 @@ namespace Sylveon.Memorize
         /// </param>
         /// <returns>
         /// The result associated with the specified parameter. If the specified key is
-        /// not found, throws a System.Collections.Generic.KeyNotFoundException.
+        /// not found, throws a <see cref="KeyNotFoundException"/>.
         /// </returns>
         /// <exception cref="KeyNotFoundException">
         /// The result has not been memorized yet.
@@ -100,7 +100,7 @@ namespace Sylveon.Memorize
     }
 
     /// <summary>
-    /// A wrapper for the main Memorizer class taking a non-nullable value only.
+    /// A wrapper for the main <seealso cref="Memorizer{T, TResult, TDictionary}" /> class taking a non-nullable value only.
     /// If you need one handling nullable values, use <see cref="NullableMemorizer{T, TResult}"/>.
     /// </summary>
     /// <typeparam name="T">
@@ -123,7 +123,7 @@ namespace Sylveon.Memorize
     }
 
     /// <summary>
-    /// A wrapper for the main Memorizer class taking a nullable value only.
+    /// A wrapper for the main <seealso cref="Memorizer{T, TResult, TDictionary}" /> class taking a nullable value only.
     /// If you need one handling non-nullable values, use <see cref="Memorizer{T, TResult}"/>.
     /// </summary>
     /// <typeparam name="T">

@@ -40,7 +40,12 @@ namespace Sylveon.Memorize
         /// true if the result has been cached; otherwise, false.
         /// </returns>
         public bool IsResultMemorized(T param) => this._memorizedResults.ContainsKey(param);
+
+        /// <summary>
+        /// Clears the cache.
+        /// </summary>
         public void ClearMemorizedResults() => this._memorizedResults.Clear();
+
         /// <summary>
         /// Gets the cached result associated with the specified input parameter.
         /// </summary>
@@ -55,6 +60,7 @@ namespace Sylveon.Memorize
         /// The result has not been cached yet.
         /// </exception>
         public TResult GetMemorizedResult(T param) => this._memorizedResults[param];
+
         /// <summary>
         /// Gets the cached result associated with the specified input parameter.
         /// </summary>

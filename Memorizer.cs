@@ -19,8 +19,8 @@ namespace Sylveon.Memorize
     /// </typeparam>
     public class Memorizer<T, TResult, TDictionary> where TDictionary : IDictionary<T, TResult>, new()
     {
-        private Func<T, TResult> _functionToMemorize;
-        private TDictionary _memorizedResults = new TDictionary();
+        private readonly Func<T, TResult> _functionToMemorize;
+        private readonly TDictionary _memorizedResults = new TDictionary();
 
         /// <summary>
         /// Initializes a new instance of the class.
@@ -28,26 +28,26 @@ namespace Sylveon.Memorize
         /// <param name="func">
         /// The function to memoize.
         /// </param>
-        public Memorizer(Func<T, TResult> func) => this._functionToMemorize = func;
+        public Memorizer(Func<T, TResult> func) => _functionToMemorize = func;
 
         /// <summary>
-        /// Determines whether the result associated to a parameter has been cached.
+        /// Determines whether the result associated to a parameter has been memorized.
         /// </summary>
         /// <param name="param">
         /// The parameter to verify.
         /// </param>
         /// <returns>
-        /// true if the result has been cached; otherwise, false.
+        /// true if the result has been memorized; otherwise, false.
         /// </returns>
-        public bool IsResultMemorized(T param) => this._memorizedResults.ContainsKey(param);
+        public bool IsResultMemorized(T param) => _memorizedResults.ContainsKey(param);
 
         /// <summary>
         /// Clears the cache.
         /// </summary>
-        public void ClearMemorizedResults() => this._memorizedResults.Clear();
+        public void ClearMemorizedResults() => _memorizedResults.Clear();
 
         /// <summary>
-        /// Gets the cached result associated with the specified input parameter.
+        /// Gets the memorized result associated with the specified input parameter.
         /// </summary>
         /// <param name="param">
         /// The input parameter of the result to get.
@@ -57,43 +57,43 @@ namespace Sylveon.Memorize
         /// not found, throws a System.Collections.Generic.KeyNotFoundException.
         /// </returns>
         /// <exception cref="KeyNotFoundException">
-        /// The result has not been cached yet.
+        /// The result has not been memorized yet.
         /// </exception>
-        public TResult GetMemorizedResult(T param) => this._memorizedResults[param];
+        public TResult GetMemorizedResult(T param) => _memorizedResults[param];
 
         /// <summary>
-        /// Gets the cached result associated with the specified input parameter.
+        /// Gets the memorized result associated with the specified input parameter.
         /// </summary>
         /// <param name="param">
         /// The input parameter of the result to get.
         /// </param>
         /// <param name="result">
         /// When this method returns, contains the results associated with the
-        /// specified parameter, if it was cached; otherwise, the default value
+        /// specified parameter, if it was memorized; otherwise, the default value
         /// for the type of the result. This parameter is passed uninitialized.
         /// </param>
         /// <returns>
-        /// true if the result has been cached; otherwise, false.
+        /// true if the result has been memorized; otherwise, false.
         /// </returns>
-        public bool TryGetMemorizedResult(T param, out TResult result) => this._memorizedResults.TryGetValue(param, out result);
+        public bool TryGetMemorizedResult(T param, out TResult result) => _memorizedResults.TryGetValue(param, out result);
 
         /// <summary>
-        /// Return the cached result if cached; otherwise call the function, cache the
+        /// Return the memorized result if memorized; otherwise call the function, memorize the
         /// result, and return it.
         /// </summary>
         /// <param name="param">
         /// The parameter that the function must be invoked with
         /// </param>
         /// <returns>
-        /// The cached result if cached; otherwise the result of calling the function.
+        /// The memorized result if memorized; otherwise the result of calling the function.
         /// </return>
         public TResult Invoke(T param)
         {
-            if(!this.IsResultMemorized(param))
+            if(!IsResultMemorized(param))
             {
-                this._memorizedResults[param] = _functionToMemorize(param);
+                _memorizedResults[param] = _functionToMemorize(param);
             }
-            return this._memorizedResults[param];
+            return _memorizedResults[param];
         }
     }
 

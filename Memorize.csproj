@@ -3,8 +3,9 @@
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageId>Sylveon.Memorize</PackageId>
-    <PackageVersion>1.0.0</PackageVersion>
+    <PackageVersion>1.0.1</PackageVersion>
     <Authors>Charles Milette</Authors>
     <Description>A simple .NET Standard library to memoize a function with a single parameter</Description>
     <PackageProjectUrl>https://github.com/sylveon/Memorize</PackageProjectUrl>

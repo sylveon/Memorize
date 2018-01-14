@@ -5,7 +5,7 @@ namespace Sylveon.Memorize
 {
     /// <summary>
     /// A class used to memoize a single-parameter function. Unrecommended,
-    /// use the Memorizer<T, TResult> and NullableMemorizer<T, Result>
+    /// use the <see cref="Memorizer{T, TResult}"/> and <see cref="NullableMemorizer{T, TResult}"/>
     /// wrappers instead.
     /// </summary>
     /// <typeparam name="T">
@@ -14,9 +14,11 @@ namespace Sylveon.Memorize
     /// <typeparam name="TResult">
     /// The type of the return value of the function
     /// </typeparam>
-    /// <typeparam>
+    /// <typeparam name="TDictionary">
     /// The type of the Dictionary to use.
     /// </typeparam>
+    /// <seealso cref="Memorizer{T, TResult}" />
+    /// <seealso cref="NullableMemorizer{T, TResult}" />
     public class Memorizer<T, TResult, TDictionary> where TDictionary : IDictionary<T, TResult>, new()
     {
         private readonly Func<T, TResult> _functionToMemorize;
@@ -86,7 +88,7 @@ namespace Sylveon.Memorize
         /// </param>
         /// <returns>
         /// The memorized result if memorized; otherwise the result of calling the function.
-        /// </return>
+        /// </returns>
         public TResult Invoke(T param)
         {
             if(!IsResultMemorized(param))
@@ -99,7 +101,7 @@ namespace Sylveon.Memorize
 
     /// <summary>
     /// A wrapper for the main Memorizer class taking a non-nullable value only.
-    /// If you need one handling nullable values, use NullableMemorizer<T, TResult>.
+    /// If you need one handling nullable values, use <see cref="NullableMemorizer{T, TResult}"/>.
     /// </summary>
     /// <typeparam name="T">
     /// The type of the parameter of the function
@@ -107,16 +109,22 @@ namespace Sylveon.Memorize
     /// <typeparam name="TResult">
     /// The type of the return value of the function
     /// </typeparam>
-    /// <seealso cref="Memorizer<T, TResult, TDictionary>" />
-    /// <seealso cref="NullableMemorizer<T, TResult>" />
+    /// <seealso cref="Memorizer{T, TResult, TDictionary}" />
+    /// <seealso cref="NullableMemorizer{T, TResult}" />
     public class Memorizer<T, TResult> : Memorizer<T, TResult, Dictionary<T, TResult>> where T : struct
     {
+        /// <summary>
+        /// Initializes a new instance of the class.
+        /// </summary>
+        /// <param name="func">
+        /// The function to memoize.
+        /// </param>
         public Memorizer(Func<T, TResult> func) : base(func) { }
     }
 
     /// <summary>
     /// A wrapper for the main Memorizer class taking a nullable value only.
-    /// If you need one handling non-nullable values, use Memorizer<T, TResult>.
+    /// If you need one handling non-nullable values, use <see cref="Memorizer{T, TResult}"/>.
     /// </summary>
     /// <typeparam name="T">
     /// The type of the parameter of the function
@@ -124,10 +132,16 @@ namespace Sylveon.Memorize
     /// <typeparam name="TResult">
     /// The type of the return value of the function
     /// </typeparam>
-    /// <seealso cref="Memorizer<T, TResult, TDictionary>" />
-    /// <seealso cref="Memorizer<T, TResult>" />
+    /// <seealso cref="Memorizer{T, TResult, TDictionary}" />
+    /// <seealso cref="Memorizer{T, TResult}" />
     public class NullableMemorizer<T, TResult> : Memorizer<T, TResult, NullableDictionary<T, TResult>> where T : class
     {
+        /// <summary>
+        /// Initializes a new instance of the class.
+        /// </summary>
+        /// <param name="func">
+        /// The function to memoize.
+        /// </param>
         public NullableMemorizer(Func<T, TResult> func) : base(func) { }
     }
 }

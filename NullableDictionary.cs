@@ -1,3 +1,5 @@
+#pragma warning disable CS1591
+
 using System.Collections;
 using System.Collections.Generic;
 
@@ -5,7 +7,7 @@ using System.Collections.Generic;
 namespace Sylveon.Memorize
 {
     /// <summary>
-    /// This is for internal use. You can use it you want,
+    /// This is for internal use. You can use it if you want,
     /// but don't rely on its behavior or presence across
     /// versions.
     /// </summary>

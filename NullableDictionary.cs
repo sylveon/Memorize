@@ -164,7 +164,7 @@ namespace Sylveon.Memorize
 
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
-            foreach (KeyValuePair<TKey, TValue> kvp in _dict)
+            foreach (var kvp in _dict)
             {
                 yield return kvp;
             }
@@ -175,10 +175,7 @@ namespace Sylveon.Memorize
             }
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public void Add(KeyValuePair<TKey, TValue> item)
         {
@@ -202,15 +199,13 @@ namespace Sylveon.Memorize
 
         public bool Contains(KeyValuePair<TKey, TValue> item) => TryGetValue(item.Key, out TValue val) && Equals(item.Value, val);
 
-        private void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
+        public void CopyTo(KeyValuePair<TKey, TValue>[] array, int index)
         {
             foreach (var kvp in this)
             {
-                array[arrayIndex++] = kvp;
+                array[index++] = kvp;
             }
         }
-
-        void ICollection<KeyValuePair<TKey,TValue>>.CopyTo(KeyValuePair<TKey,TValue>[] array, int index) => CopyTo(array, index);
 
         public bool Remove(KeyValuePair<TKey, TValue> item) => Contains(item) && Remove(item.Key);
 

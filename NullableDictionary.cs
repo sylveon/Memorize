@@ -1,17 +1,10 @@
-#pragma warning disable CS1591
-
 using System.Collections;
 using System.Collections.Generic;
 
 // Taken from https://github.com/nhibernate/nhibernate-core/blob/master/src/NHibernate/Util/NullableDictionary.cs
 namespace Sylveon.Memorize
 {
-    /// <summary>
-    /// This is for internal use. You can use it if you want,
-    /// but don't rely on its behavior or presence across
-    /// versions.
-    /// </summary>
-    public class NullableDictionary<TKey, TValue> : IDictionary<TKey, TValue>
+    internal class NullableDictionary<TKey, TValue> : IDictionary<TKey, TValue>
     {
         private TValue _nullValue;
         private bool _gotNullValue;

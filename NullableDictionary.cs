@@ -12,7 +12,6 @@ namespace Sylveon.Memorize
     /// versions.
     /// </summary>
     public class NullableDictionary<TKey, TValue> : IDictionary<TKey, TValue>
-        where TKey : class
     {
         private TValue _nullValue;
         private bool _gotNullValue;
@@ -133,7 +132,7 @@ namespace Sylveon.Memorize
                 if (_gotNullValue)
                 {
                     List<TKey> keys = new List<TKey>(_dict.Keys);
-                    keys.Add(null);
+                    keys.Add(default);
                     return keys;
                 }
                 else
@@ -169,7 +168,7 @@ namespace Sylveon.Memorize
 
             if (_gotNullValue)
             {
-                yield return new KeyValuePair<TKey, TValue>(null, _nullValue);
+                yield return new KeyValuePair<TKey, TValue>(default, _nullValue);
             }
         }
 
@@ -200,9 +199,7 @@ namespace Sylveon.Memorize
 
         public bool Contains(KeyValuePair<TKey, TValue> item)
         {
-            TValue val;
-
-            if (TryGetValue(item.Key, out val))
+            if (TryGetValue(item.Key, out TValue val))
             {
                 return Equals(item.Value, val);
             }

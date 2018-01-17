@@ -4,7 +4,13 @@ using System.Collections.Generic;
 // Taken from https://github.com/nhibernate/nhibernate-core/blob/master/src/NHibernate/Util/NullableDictionary.cs
 namespace Sylveon.Memorize
 {
-    internal class NullableDictionary<TKey, TValue> : IDictionary<TKey, TValue>
+    internal class NullableDictionary<TKey, TValue> :
+        IDictionary<TKey, TValue>,
+        IReadOnlyDictionary<TKey, TValue>,
+        ICollection<KeyValuePair<TKey, TValue>>,
+        IEnumerable<KeyValuePair<TKey, TValue>>,
+        IEnumerable,
+        IReadOnlyCollection<KeyValuePair<TKey, TValue>>
     {
         private TValue _nullValue;
         private bool _gotNullValue;
@@ -51,7 +57,7 @@ namespace Sylveon.Memorize
             {
                 if (_gotNullValue)
                 {
-                    _nullValue = default(TValue);
+                    _nullValue = default;
                     _gotNullValue = false;
                     return true;
                 }
@@ -135,6 +141,8 @@ namespace Sylveon.Memorize
             }
         }
 
+        IEnumerable<TKey> IReadOnlyDictionary<TKey, TValue>.Keys => Keys;
+
         public ICollection<TValue> Values
         {
             get
@@ -151,6 +159,8 @@ namespace Sylveon.Memorize
                 }
             }
         }
+
+        IEnumerable<TValue> IReadOnlyDictionary<TKey, TValue>.Values => Values;
 
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
@@ -190,27 +200,19 @@ namespace Sylveon.Memorize
             _gotNullValue = false;
         }
 
-        public bool Contains(KeyValuePair<TKey, TValue> item)
+        public bool Contains(KeyValuePair<TKey, TValue> item) => TryGetValue(item.Key, out TValue val) && Equals(item.Value, val);
+
+        private void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
         {
-            if (TryGetValue(item.Key, out TValue val))
+            foreach (var kvp in this)
             {
-                return Equals(item.Value, val);
-            }
-            else
-            {
-                return false;
+                array[arrayIndex++] = kvp;
             }
         }
 
-        public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
-        {
-            throw new System.NotImplementedException();
-        }
+        void ICollection<KeyValuePair<TKey,TValue>>.CopyTo(KeyValuePair<TKey,TValue>[] array, int index) => CopyTo(array, index);
 
-        public bool Remove(KeyValuePair<TKey, TValue> item)
-        {
-            throw new System.NotImplementedException();
-        }
+        public bool Remove(KeyValuePair<TKey, TValue> item) => Contains(item) && Remove(item.Key);
 
         public int Count
         {
